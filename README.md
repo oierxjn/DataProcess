@@ -11,7 +11,7 @@ data_process.py 用于处理数据，提供了绘制功能
 
 $$
 \begin{aligned}
-螺线管直径\quad D = 0.035m\\\\\\\\\\\\
+螺线管直径\quad D = 0.035m\\
 螺线管长度\quad L = 0.260m\\
 真空磁导率\quad \mu _0 = 4\pi \times 10^{-7} T\cdot m\cdot A^{-1}\\
 螺线管匝数\quad N = 3000\\
@@ -26,8 +26,10 @@ $$
 用到的公式  
 
 $$
-K_s = \frac{\sqrt{D^2 + L^2}}{\mu _0N}\cdot k\\
-k = \frac{\Delta U_s}{\Delta I_m}
+\begin{aligned}
+K_s &= \frac{\sqrt{D^2 + L^2}}{\mu _0N}\cdot k\\
+k &= \frac{\Delta U_s}{\Delta I_m}
+\end{aligned}
 $$
 
 显然这个 $k$ 需要利用实验数据进行线性回归获得。
