@@ -1,104 +1,32 @@
 import data_process
-import os
-
-def print_list(t: list):
-    for i in t:
-        print(i, end=' ')
-    print('')
-
-swap_flag: bool = True
-zip_flag: bool = True
-title = "标定传感器灵敏度测量数据"
-
-x_lable = 'I_m'
-y_lable = 'U_s'
-
-x_unit = 'mA'
-y_unit = 'mV'
-
-col = [f'${y_lable} ({y_unit})$', f'${x_lable} ({x_unit})$']
-
-x: list = None
-y: list = None
 
 
-get_data = data_process.GetData()
+data1 = data_process.GetData()
 
-x, y = get_data.file_get("1.txt").lines_extract_data().data_extract_xy(swap_flag=swap_flag)
+data1.file_get("1.txt").lines_extract_data()
 
-get_data.table_drawing(zip_flag=zip_flag, columns=col, title=title)
+data1.data_add_byfunc(lambda x: (x[1] + x[2])/2)
+data1.data_add_byfunc(lambda x: (x[3] + x[4])/2)
+data1.data_add_byfunc(lambda x: (x[5] + x[6])/2)
 
-run_Linear = data_process.UnivariateLinearRegression()
-run_Linear.fit(x,y)
+data1.print_data(position=[7, 8, 9])
 
-run_Linear.show_graph(
-    x_label=x_lable,
-    y_label=y_lable,
-    x_unit=x_unit,
-    y_unit=y_unit
-)
+data2 = data_process.GetData()
+data2.file_get("2.txt").lines_extract_data()
 
-print(run_Linear.slope)
-print(run_Linear.score())
+data2.data_add_byfunc(lambda x: (x[1] + x[2])/2)
+data2.data_add_byfunc(lambda x: (x[3] + x[4])/2)
+data2.data_add_byfunc(lambda x: (x[5] + x[6])/2)
 
-k_slope = run_Linear.slope
+data2.print_data(position=[7])
 
-# ==========================================
-# swap_flag: bool = True
-zip_flag: bool = False
-title = "螺线内磁感应强度B与位置刻度x的关系"
 
-x = ['x','cm']
-U1 = ['U_1','mV']
-U2 = ['U_2','mV']
-Us = ['U_s','mV']
-B = ['B','mT']
+data3 = data_process.GetData()
 
-ks = 69.58922362 * k_slope
+data3.file_get("3.txt").lines_extract_data()
 
-col = [
-    f'${x[0]} \; ({x[1]})$', 
-    f'${U1[0]}\; ({U1[1]})$', 
-    f'${U2[0]}\; ({U2[1]})$',
-    f'${Us[0]}\; ({Us[1]})$',
-    f'${B[0]} \; ({B[1]})$'
-]
-result = (
-    get_data.file_get("2.txt")
-            .lines_extract_data()
-            .sort()
-            .data_add_byfunc(lambda x: (x[1]-x[2])/2)
-            .data_add_byfunc(lambda x: x[3]/ks)
-)
-get_data.table_drawing(zip_flag=zip_flag, columns=col, title=title, small_size=True)
+data3.data_add_byfunc(lambda x: (x[1] + x[2])/2)
+data3.data_add_byfunc(lambda x: (x[3] + x[4])/2)
+data3.data_add_byfunc(lambda x: (x[5] - x[6]))
 
-# =================================================
-x_lable = x[0]
-y_lable = Us[0]
-
-x_unit = x[1]
-y_unit = Us[1]
-
-title = ""
-
-Bx_data = data_process.GetData()
-Bx_data.data = Bx_data.extract_data_from_data(
-    lambda x: [x[0], x[4]],
-    get_data.data
-)
-
-xt, yt = get_data.data_extract_xy(0, 4)
-
-graph = data_process.Visual(title="通电螺线管轴线上磁感应强度分布散点图")
-graph.set_label(f"{x[0]}({x[1]})", f"{B[0]}({B[1]})")
-
-graph.add_multi_dot(xt, yt)
-graph.show()
-graph.reset()
-
-graph.set_title(title="通电螺线管轴线上磁感应强度分布曲线")
-
-graph.set_label(f"{x[0]}({x[1]})", f"{B[0]}({B[1]})")
-graph.add_multi_dot(xt, yt, color="red")
-graph.add_line_between_dot(xt ,yt)
-graph.show()
+data3.print_data(position=[7])
