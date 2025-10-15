@@ -10,7 +10,7 @@ data_process.py 用于处理数据，提供了绘制功能
 用到的参数  
 
 $$
-螺线管直径\quad D = 0.035m\\\\\\
+螺线管直径\quad D = 0.035m\\\\\\\\\\\\
 螺线管长度\quad L = 0.260m\\
 真空磁导率\quad \mu _0 = 4\pi \times 10^{-7} T\cdot m\cdot A^{-1}\\
 螺线管匝数\quad N = 3000\\
