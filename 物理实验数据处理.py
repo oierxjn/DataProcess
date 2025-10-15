@@ -41,6 +41,8 @@ run_Linear.show_graph(
 print(run_Linear.slope)
 print(run_Linear.score())
 
+k_slope = run_Linear.slope
+
 # ==========================================
 # swap_flag: bool = True
 zip_flag: bool = False
@@ -52,7 +54,7 @@ U2 = ['U_2','mV']
 Us = ['U_s','mV']
 B = ['B','mT']
 
-ks = 31.9
+ks = 69.58922362 * k_slope
 
 col = [
     f'${x[0]} \; ({x[1]})$', 
