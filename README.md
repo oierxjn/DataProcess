@@ -7,7 +7,8 @@ data_process.py 用于处理数据，提供了绘制功能
 
 ## 关于实验
 
-用到的参数
+用到的参数  
+
 $$
 螺线管直径\quad D = 0.035m\\
 螺线管长度\quad L = 0.260m\\
@@ -20,7 +21,8 @@ $$
 测量位置\quad x \\
 $$
 
-用到的公式
+用到的公式  
+
 $$
 K_s = \frac{\sqrt{D^2 + L^2}}{\mu _0N}\cdot k\\
 k = \frac{\Delta U_s}{\Delta I_m}
