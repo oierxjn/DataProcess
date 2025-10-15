@@ -11,15 +11,15 @@ data_process.py 用于处理数据，提供了绘制功能
 
 $$
 \begin{aligned}
-螺线管直径\quad D = 0.035m\\
-螺线管长度\quad L = 0.260m\\
-真空磁导率\quad \mu _0 = 4\pi \times 10^{-7} T\cdot m\cdot A^{-1}\\
-螺线管匝数\quad N = 3000\\
-霍尔电压\quad U_s \\
-正向电流的霍尔电压\quad U_{s+} \\
-反向电流的霍尔电压\quad U_{s-} \\
-励磁电流\quad I_m \\
-测量位置\quad x \\
+螺线管直径&\quad D = 0.035m\\
+螺线管长度&\quad L = 0.260m\\
+真空磁导率&\quad \mu _0 = 4\pi \times 10^{-7} T\cdot m\cdot A^{-1}\\
+螺线管匝数&\quad N = 3000\\
+霍尔电压&\quad U_s \\
+正向电流的霍尔电压&\quad U_{s+} \\
+反向电流的霍尔电压&\quad U_{s-} \\
+励磁电流&\quad I_m \\
+测量位置&\quad x \\
 \end{aligned}
 $$
 
