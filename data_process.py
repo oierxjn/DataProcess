@@ -173,7 +173,25 @@ class GetData:
         data.sort()
         return self
     
+
+
     def data_add_byfunc(self, func, data: list=None):
+        """
+        向数据中添加新列，新列数据的每个元由func(i)确定，
+        传入的参数i为数据中的每一行。
+        新列数据将添加到数据的最后一列。
+
+        参数：
+            func: 用于计算新列数据的函数，
+                传入参数：数据中的每一行。
+                返回值为新列数据（只生成一个数）。
+
+            data: 要添加新列的数据集，
+                默认值为实例数据。
+
+        返回值：
+            self: 实例对象，用于链式调用。
+        """
         if data == None:
             data = self.data
         for i in data:
@@ -193,6 +211,19 @@ class GetData:
         for i in data:
             out_data.append(func(i))
         return out_data
+    
+    def print_data(self, data: list=None, position: list=None):
+        if data == None:
+            data = self.data
+        for i in data:
+            if position != None:
+                for j in position:
+                    print(i[j], end=" ")
+            else:
+                for j in i:
+                    print(j, end=" ")
+            print("")
+        return self
     
 class Visual:
     """
