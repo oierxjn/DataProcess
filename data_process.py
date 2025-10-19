@@ -194,6 +194,26 @@ class GetData:
             out_data.append(func(i))
         return out_data
     
+    def print_data(self, 
+            position: list=None,
+            data: list=None,
+        ):
+        if data == None:
+            data = self.data
+        if position == None:
+            position = range(len(data[0]))
+        for i in data:
+            for j in position:
+                print(i[j], end=" ")
+            print("")
+        return self
+    
+    def insert_single(self, position: int=0, value: float=0, data: list=None):
+        if data == None:
+            data = self.data
+        for i in data:
+            i.insert(position, value)
+        return self
 class Visual:
     """
     单例plt
