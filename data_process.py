@@ -9,6 +9,11 @@ import msvcrt
 def override(func):
     return func
 
+def element_match(i: int, j: int, deviation: float=0.01):
+    if abs(i - j)*2/(i + j) <= deviation:
+        return True
+    return False
+
 class UnivariateLinearRegression(slm.LinearRegression):
     def __init__(self):
         super().__init__()
@@ -64,9 +69,9 @@ class UnivariateLinearRegression(slm.LinearRegression):
         return self
 
 class GetData:
-    def __init__(self):
+    def __init__(self ,data: list=None):
         self.lines: list = None
-        self.data: list = None
+        self.data: list = data
         return
     
     def file_get(self, file_name="1.txt"):
@@ -87,6 +92,19 @@ class GetData:
             swap_flag: bool = False,
             layout=DataLayout.VERTICAL 
         ):
+        """
+        从数据中提取二元数据，提取两列。
+
+        参数：
+            x：自变量列索引，默认第0列。
+            y：因变量列索引，默认第1列。
+            data：要提取数据的列表，默认使用self.data。
+            swap_flag：是否交换x和y，默认False。
+            layout：数据布局，默认垂直布局。（暂时无作用）
+        返回：一个元组(ax, ay)
+            ax：提取的自变量列表。
+            ay：提取的因变量列表。
+        """
         if data == None:
             data = self.data
 
@@ -125,6 +143,17 @@ class GetData:
             data: list=None,
             small_size: bool=False
         ):
+        """
+        绘制表格。
+
+        参数：
+            zip_flag：是否转置数据，默认False。
+            columns：表头列表，默认None。
+            title：表格标题，默认"表格"。
+            data：要绘制的数据，默认使用self.data。
+            small_size：是否使用小字体，默认False。
+        返回：无
+        """
         if data == None:
             data = self.data
         table_data = [[round(x, 2) for x in row] for row in data]
@@ -173,24 +202,15 @@ class GetData:
         data.sort()
         return self
     
-
-
     def data_add_byfunc(self, func, data: list=None):
         """
-        向数据中添加新列，新列数据的每个元由func(i)确定，
-        传入的参数i为数据中的每一行。
-        新列数据将添加到数据的最后一列。
+        将数据列表的每一行传入给定函数，并将给定函数的返回值添加为传入行的新元素，加入到行末
 
         参数：
-            func: 用于计算新列数据的函数，
-                传入参数：数据中的每一行。
-                返回值为新列数据（只生成一个数）。
-
-            data: 要添加新列的数据集，
-                默认值为实例数据。
-
-        返回值：
-            self: 实例对象，用于链式调用。
+            func：传入的函数。将传入数据的一行为参数，需要有返回值
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            self：返回当前实例，用于链式调用。
         """
         if data == None:
             data = self.data
@@ -202,6 +222,15 @@ class GetData:
             func,
             data:list=None
         ):
+        """
+        将数据列表的每一行传入给定函数，并将给定函数的返回值作为一行，返回新数据列表。
+
+        参数：
+            func：传入的函数。将传入数据的一行为参数，需要有返回值。
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            out_data：处理后的新数据列表。
+        """
         if data == None:
             if self.data == None:
                 print("extract_data_from_data提取数据时出错：输入数据为空，实例数据为空")
@@ -212,19 +241,57 @@ class GetData:
             out_data.append(func(i))
         return out_data
     
-    def print_data(self, data: list=None, position: list=None):
+    def print_data(self, 
+            position: list=None,
+            data: list=None,
+        ):
         if data == None:
             data = self.data
+        if position == None:
+            position = range(len(data[0]))
         for i in data:
-            if position != None:
-                for j in position:
-                    print(i[j], end=" ")
-            else:
-                for j in i:
-                    print(j, end=" ")
+            for j in position:
+                print(i[j], end=" ")
             print("")
         return self
     
+    def insert_single(self, position: int=0, value: float=0, data: list=None):
+        """
+        在数据列表的每一行的指定位置插入给定值。
+
+        参数：
+            position：插入位置，默认0。
+            value：插入值，默认0。
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            self：返回当前实例，用于链式调用。
+        """
+        if data == None:
+            data = self.data
+        for i in data:
+            i.insert(position, value)
+        return self
+    
+    def insert_byfunc(self, 
+            func,
+            position: int=0,
+            data: list=None
+        ):
+        """
+        在数据列表的每一行的指定位置插入给定函数的返回值。
+
+        参数：
+            func：传入的函数。将传入数据的一行及其行号（从0开始）为参数，需要有返回值。
+            position：插入位置，默认0。
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            self：返回当前实例，用于链式调用。
+        """
+        if data == None:
+            data = self.data
+        for i in range(len(data)):
+            data[i].insert(position, func(data[i], i))
+        return self
 class Visual:
     """
     单例plt
