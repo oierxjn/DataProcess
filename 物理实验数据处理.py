@@ -92,16 +92,26 @@ def element_match(i: int, j: int, deviation: float=0.01):
 
 for i in range(len(data2.data)):
     if i in data2_has_matched:
-        break
+        continue
     for j in range(i+1, len(data2.data)):
         if j in data2_has_matched:
-            break
+            continue
         if element_match(data2.data[i][7], data2.data[j][7]):
             if element_match(data2.data[i][9], data2.data[j][9]):
                 data2_has_matched.append(i)
                 data2_has_matched.append(j)
-                match_data2.append([i, j])
+                match_data2.append([data2.data[i][7], data2.data[i][8], data2.data[j][8], data2.data[i][9]])
                 break
+
+# print(data2_has_matched)
+
+data2 = data_process.GetData(match_data2)
+table_col2 = ["次数", "物屏", "第一次成像透镜", "第二次成像透镜", "白屏"]
+data2.insert_byfunc(lambda _, i: i+1)
+data2.table_drawing(
+    columns=table_col2,
+    title="共轭法测凸透镜焦距"
+)
 
 data3 = data_process.GetData()
 
