@@ -64,9 +64,9 @@ class UnivariateLinearRegression(slm.LinearRegression):
         return self
 
 class GetData:
-    def __init__(self):
+    def __init__(self ,data: list=None):
         self.lines: list = None
-        self.data: list = None
+        self.data: list = data
         return
     
     def file_get(self, file_name="1.txt"):
@@ -87,6 +87,19 @@ class GetData:
             swap_flag: bool = False,
             layout=DataLayout.VERTICAL 
         ):
+        """
+        从数据中提取二元数据，提取两列。
+
+        参数：
+            x：自变量列索引，默认第0列。
+            y：因变量列索引，默认第1列。
+            data：要提取数据的列表，默认使用self.data。
+            swap_flag：是否交换x和y，默认False。
+            layout：数据布局，默认垂直布局。（暂时无作用）
+        返回：一个元组(ax, ay)
+            ax：提取的自变量列表。
+            ay：提取的因变量列表。
+        """
         if data == None:
             data = self.data
 
@@ -125,6 +138,17 @@ class GetData:
             data: list=None,
             small_size: bool=False
         ):
+        """
+        绘制表格。
+
+        参数：
+            zip_flag：是否转置数据，默认False。
+            columns：表头列表，默认None。
+            title：表格标题，默认"表格"。
+            data：要绘制的数据，默认使用self.data。
+            small_size：是否使用小字体，默认False。
+        返回：无
+        """
         if data == None:
             data = self.data
         table_data = [[round(x, 2) for x in row] for row in data]
@@ -174,6 +198,15 @@ class GetData:
         return self
     
     def data_add_byfunc(self, func, data: list=None):
+        """
+        将数据列表的每一行传入给定函数，并将给定函数的返回值添加为新列。
+
+        参数：
+            func：传入的函数。将传入数据的一行为参数，需要有返回值
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            self：返回当前实例，用于链式调用。
+        """
         if data == None:
             data = self.data
         for i in data:
@@ -184,6 +217,15 @@ class GetData:
             func,
             data:list=None
         ):
+        """
+        将数据列表的每一行传入给定函数，并将给定函数的返回值作为列，返回新数据列表。
+
+        参数：
+            func：传入的函数。将传入数据的一行为参数，需要有返回值。
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            out_data：处理后的新数据列表。
+        """
         if data == None:
             if self.data == None:
                 print("extract_data_from_data提取数据时出错：输入数据为空，实例数据为空")
@@ -209,6 +251,16 @@ class GetData:
         return self
     
     def insert_single(self, position: int=0, value: float=0, data: list=None):
+        """
+        在数据列表的每一行的指定位置插入给定值。
+
+        参数：
+            position：插入位置，默认0。
+            value：插入值，默认0。
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            self：返回当前实例，用于链式调用。
+        """
         if data == None:
             data = self.data
         for i in data:
