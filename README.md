@@ -1,5 +1,16 @@
+# 这个项目是什么
+用来快捷地帮助同济的学子处理物理实验中的数据。
+
+项目中对特定的实验提供了数据处理、图标绘制。
+
+# 如何使用
+左上角切换到对应的实验分支，再点右边的code按钮，即可下载对应的zip包。
+
+或者点这里快速切换：  
+[用霍尔效应法测量磁感应强度](https://github.com/oierxjn/DataProcess/archive/refs/heads/%E7%94%A8%E9%9C%8D%E5%B0%94%E6%95%88%E5%BA%94%E6%B3%95%E6%B5%8B%E9%87%8F%E7%A3%81%E6%84%9F%E5%BA%94%E5%BC%BA%E5%BA%A6.zip)
+
 # 数据处理
-data_process.py 用于处理数据，提供了绘制功能  
+
 
 物理实验数据处理.py 中调用了data_process.py 中的功能  
 
