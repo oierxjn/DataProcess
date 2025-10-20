@@ -9,6 +9,11 @@ import msvcrt
 def override(func):
     return func
 
+def element_match(i: int, j: int, deviation: float=0.01):
+    if abs(i - j)*2/(i + j) <= deviation:
+        return True
+    return False
+
 class UnivariateLinearRegression(slm.LinearRegression):
     def __init__(self):
         super().__init__()
@@ -199,7 +204,7 @@ class GetData:
     
     def data_add_byfunc(self, func, data: list=None):
         """
-        将数据列表的每一行传入给定函数，并将给定函数的返回值添加为新列。
+        将数据列表的每一行传入给定函数，并将给定函数的返回值添加为传入行的新元素，加入到行末
 
         参数：
             func：传入的函数。将传入数据的一行为参数，需要有返回值
@@ -218,7 +223,7 @@ class GetData:
             data:list=None
         ):
         """
-        将数据列表的每一行传入给定函数，并将给定函数的返回值作为列，返回新数据列表。
+        将数据列表的每一行传入给定函数，并将给定函数的返回值作为一行，返回新数据列表。
 
         参数：
             func：传入的函数。将传入数据的一行为参数，需要有返回值。
@@ -265,6 +270,27 @@ class GetData:
             data = self.data
         for i in data:
             i.insert(position, value)
+        return self
+    
+    def insert_byfunc(self, 
+            func,
+            position: int=0,
+            data: list=None
+        ):
+        """
+        在数据列表的每一行的指定位置插入给定函数的返回值。
+
+        参数：
+            func：传入的函数。将传入数据的一行及其行号（从0开始）为参数，需要有返回值。
+            position：插入位置，默认0。
+            data：要处理的数据列表，默认使用self.data。
+        返回：
+            self：返回当前实例，用于链式调用。
+        """
+        if data == None:
+            data = self.data
+        for i in range(len(data)):
+            data[i].insert(position, func(data[i], i))
         return self
 class Visual:
     """
