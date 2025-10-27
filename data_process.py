@@ -75,6 +75,9 @@ class GetData:
         return
     
     def file_get(self, file_name="1.txt"):
+        '''
+        在文件中提取数据到lines属性
+        '''
         lines: list = None
         with open(file_name,'r') as f:
             lines = f.readlines()
@@ -226,7 +229,7 @@ class GetData:
         将数据列表的每一行传入给定函数，并将给定函数的返回值作为一行，返回新数据列表。
 
         参数：
-            func：传入的函数。将传入数据的一行为参数，需要有返回值。
+            func：传入的函数。将传入数据的一行为参数，返回值为新行。
             data：要处理的数据列表，默认使用self.data。
         返回：
             out_data：处理后的新数据列表。
