@@ -56,4 +56,4 @@ data.data_add_byfunc(lambda x: x[5]/(20*(589.3*0.0000001))) #6
 
 col = ['级次', '$x1$', '$x2$', '$D_1$', '$D_1^2$', '$D_m-D_n$', '$R_{m-n}$']
 
-data.table_drawing(columns=col ,title="用牛顿环测透镜的曲率半径实验数据记录表")
+data.table_drawing(columns=col , precision=4, title="用牛顿环测透镜的曲率半径实验数据记录表")

@@ -143,6 +143,7 @@ class GetData:
             zip_flag: bool=False, 
             columns: list=None,
             title="表格",
+            precision: int=2,
             data: list=None,
             small_size: bool=False
         ):
@@ -159,7 +160,7 @@ class GetData:
         """
         if data == None:
             data = self.data
-        table_data = [[round(x, 2) for x in row] for row in data]
+        table_data = [[round(x, precision) for x in row] for row in data]
         
         if columns != None:
             if len(columns)==len(data[0]):
