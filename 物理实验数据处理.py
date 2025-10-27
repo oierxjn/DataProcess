@@ -1,32 +1,40 @@
 import data_process
 
+origin_data = data_process.GetData()
 
-data1 = data_process.GetData()
+origin_data.file_get("1.txt").lines_extract_data()
 
-data1.file_get("1.txt").lines_extract_data()
+data = data_process.GetData(origin_data.extract_data_from_data(func=lambda x: [x[0], x[1], x[2]]))
 
-data1.data_add_byfunc(lambda x: (x[1] + x[2])/2)
-data1.data_add_byfunc(lambda x: (x[3] + x[4])/2)
-data1.data_add_byfunc(lambda x: (x[5] + x[6])/2)
+data.data_add_byfunc(lambda x: (x[1] - x[2])) #3
+data.data_add_byfunc(lambda x: (x[3]*x[3])) #4
 
-data1.print_data(position=[7, 8, 9])
+data_flags = {}
 
-data2 = data_process.GetData()
-data2.file_get("2.txt").lines_extract_data()
-
-data2.data_add_byfunc(lambda x: (x[1] + x[2])/2)
-data2.data_add_byfunc(lambda x: (x[3] + x[4])/2)
-data2.data_add_byfunc(lambda x: (x[5] + x[6])/2)
-
-data2.print_data(position=[7])
+def add_data(i):
+    global data_flags
+    return data_flags[i[0]]
 
 
-data3 = data_process.GetData()
 
-data3.file_get("3.txt").lines_extract_data()
+for i in data.data:
+    if i[0] in data_flags:
+        continue
+    for j in data.data:
+        if j[0] in data_flags:
+            continue
+        if j[0] == i[0]+5 or j[0] == i[0]-5:
+            ans = abs(i[4] - j[4])
+            if j[0]>i[0]:
+                data_flags[j[0]] = ans
+                data_flags[i[0]] = 0
+            else :
+                data_flags[i[0]] = ans
+                data_flags[j[0]] = 0
 
-data3.data_add_byfunc(lambda x: (x[1] + x[2])/2)
-data3.data_add_byfunc(lambda x: (x[3] + x[4])/2)
-data3.data_add_byfunc(lambda x: (x[5] - x[6]))
+data.data_add_byfunc(add_data) #5
+data.data_add_byfunc(lambda x: x[5]/(20*(589.3*0.0000001))) #6
 
-data3.print_data(position=[7])
+col = ['级次', 'x1', 'x2', 'D_1', 'D_1^2', 'D_m-D_n', 'R_{m-n}']
+
+data.table_drawing(columns=col ,title="用牛顿环测透镜的曲率半径实验数据记录表")
