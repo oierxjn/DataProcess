@@ -72,8 +72,8 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --upgrade pip
 ```
 ### 运行程序
-直接点开 data_process.py 即可运行。  
+直接点开 物理实验数据处理.py 即可运行。  
 或者在项目根目录的命令行中输入以下命令运行：
 ```
-python data_process.py
+python 物理实验数据处理.py
 ```
