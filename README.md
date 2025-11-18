@@ -1,46 +1,75 @@
-# 这个项目是什么
-用来快捷地帮助同济的学子处理物理实验中的数据。
+# 数据处理
+data_process.py 用于处理数据，提供了绘制功能  
 
-项目中对特定的实验提供了数据处理、图标绘制。
+物理实验数据处理.py 中调用了data_process.py 中的功能  
 
-# 如何使用
+1.txt 是实验数据
 
-## 获取代码
-左上角切换到对应的实验分支，再点右边的code按钮，即可下载对应的zip包。
+## 关于实验
 
-或者点这里在github上下载：  
-[用霍尔效应法测量磁感应强度](https://github.com/oierxjn/DataProcess/archive/refs/heads/%E7%94%A8%E9%9C%8D%E5%B0%94%E6%95%88%E5%BA%94%E6%B3%95%E6%B5%8B%E9%87%8F%E7%A3%81%E6%84%9F%E5%BA%94%E5%BC%BA%E5%BA%A6.zip)  
-[透镜焦距的测量](https://github.com/oierxjn/DataProcess/archive/refs/heads/%E9%80%8F%E9%95%9C%E7%84%A6%E8%B7%9D%E7%9A%84%E6%B5%8B%E9%87%8F.zip)  
+由于只需要提交阻尼振动的$\beta $值，所以所以只考虑阻尼振动的数据。
 
-## 安装依赖
-项目需要python 3.10及以上的版本，更低版本不保证正常运行，并且在未来不进行维护。
+用到的参数  
 
-项目需要pip
+$$
+\begin{aligned}
+振幅\quad &\theta _n\\
+五次后的振幅\quad &\theta _{n+5}\\
+振动周期 \quad &T\\
+\end{aligned}
+$$
 
-解压下载的zip包，在项目根目录下安装依赖：
+用到的公式  
 
+$$
+\begin{aligned}
+\beta &= \frac{ln\theta _{n}-ln\theta _{n+5}}{5T}
+\end{aligned}
+$$
+
+由于实验一般会固定测五次后的振幅，所以程序中只需要输入振幅即可。当然你可以在程序中修改这个值（默认值为$n=5$）。
+
+振动周期由于是用的同样的仪器，所以不用写了，默认为$T=1.567$。同样的，程序中也可以修改这个值。
+
+$\beta$ 的大概的值为 $0.07$ 
+
+## 数据格式
+你可以在校园网的环境登上 http://202.120.171.159/，然后将实验数据的阻尼振动部分复制到 1.txt 中。
+
+我从网站上复制的数据是一列排列的（见1.txt），所以我写的程序会自动处理这个情况。
+
+当然，也可以是行排列的（见2.txt）
+
+对于所有格式，程序自动识别。三个数为一组，分别是序号（无意义，可以乱填，但是必须要有）、振幅、五次后的振幅。
+
+为什么要设计序号这个东西？因为复制下来比较方便。鼠标一拖就复制下来了，只是多带了个序号。
+
+## 运行
+
+### 安装依赖
+需要你先安装Python，建议版本为3.10及以上。  
+然后你需要安装一些Python库，你可以在项目根目录的命令行中输入以下命令安装：
 ```
 pip install -r requirements.txt
 ```
 
-如果下载过慢，上网搜索如何使用pip镜像源下载。推荐清华源。
+如果报错无pip命令，试试：
+```
+python -m pip install -r requirements.txt
+```
 
-## 填入数据
+如果你觉得下载太慢，你可以运行一下语句将pip源永久换成清华源
+```
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+```
 
-项目根目录下有一个README.md 文件，里面有关于对应实验数据格式的说明。
-
-根据README说明，将实验数据相应文件中。
-
-## 运行项目
-
-在项目根目录下运行：
-
+利用清华源更新pip：
+```
+python -m pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --upgrade pip
+```
+### 运行程序
+直接点开 物理实验数据处理.py 即可运行。  
+或者在项目根目录的命令行中输入以下命令运行：
 ```
 python 物理实验数据处理.py
 ```
-
-# 反馈
-
-你可以直接在我的github仓库中提交[issue](https://github.com/oierxjn/DataProcess/issues)。
-
-或者是通过邮箱联系我：2553759@tongji.edu.cn
