@@ -4,12 +4,12 @@ import os
 import re
 
 n = 5
+T = 1.567
 
 def process_data(m: int):
     with open(f"{m}.txt","r") as f:
         lines = f.readlines()
 
-    T = 1.567
     data = []
     tmp = []
     cnt = 0
