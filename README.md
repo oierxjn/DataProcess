@@ -46,10 +46,40 @@ data_process.py 用于处理数据，提供了绘制功能
 - 第二组数据的顺序是物、凸透镜、像
 - 第三组数据的顺序是凸透镜、物（像）
 
-# 程序的其他说明
+# 其他说明
 
 渲染的表格里如果数据是小数，会自动保留两位小数。  
 
 如果显示的字符串长度超过了表格的宽度，请自行拉伸窗口以达到最佳效果。
 
 程序会在终端页面输出各组数据的对应的焦距。
+
+## 运行
+
+### 安装依赖
+需要你先安装Python，建议版本为3.10及以上。  
+然后你需要安装一些Python库，你可以在项目根目录的命令行中输入以下命令安装：
+```
+pip install -r requirements.txt
+```
+
+如果报错无pip命令，试试：
+```
+python -m pip install -r requirements.txt
+```
+
+如果你觉得下载太慢，你可以运行一下语句将pip源永久换成清华源
+```
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+利用清华源更新pip：
+```
+python -m pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --upgrade pip
+```
+### 运行程序
+直接点开 物理实验数据处理.py 即可运行。  
+或者在项目根目录的命令行中输入以下命令运行：
+```
+python 物理实验数据处理.py
+```
